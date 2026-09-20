@@ -1,10 +1,157 @@
 import React from 'react';
 import './App.css';
 
+
+function EatToAccess({ onBack }) {
+  const [eatToken, setEatToken] = React.useState('');
+  const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
+
+  const generate = async () => {
+    const token = eatToken.trim();
+    if (!token) {
+      setError('Please paste your Eat Token.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    setData(null);
+
+    try {
+      const url =
+        'https://access.killersharmabot.online/access?access_token=' +
+        encodeURIComponent(token);
+
+      const res = await fetch(url);
+      const text = await res.text();
+
+      let body;
+      try {
+        body = JSON.parse(text);
+      } catch {
+        throw new Error('API returned a non-JSON response.');
+      }
+
+      if (!res.ok) {
+        throw new Error(body?.message || `Request failed (${res.status})`);
+      }
+
+      setData(body);
+    } catch (e) {
+      setError(e?.message || 'Unable to fetch API response.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copy = async (value) => {
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch {}
+  };
+
+  return (
+    <div className="app-wrapper eat-page">
+      <div className="card-wrapper">
+        <button className="back-btn" onClick={onBack}>← Back</button>
+
+        <div className="brand">
+          <div className="logo-ring">
+            <div className="ff-brand">FF</div>
+          </div>
+          <h1>GHOST EAT TOKEN</h1>
+          <h1>ACCESS</h1>
+          <p>SECURE • FAST • SIMPLE</p>
+        </div>
+
+        <div className="eat-panel">
+          <div className="eat-icon">FF</div>
+          <h2>Eat Token</h2>
+          <p>Paste your Eat Token below</p>
+
+          <textarea
+            className="token-input"
+            value={eatToken}
+            onChange={(e) => setEatToken(e.target.value)}
+            placeholder="Paste Eat Token here..."
+            spellCheck="false"
+          />
+
+          <button className="generate-btn" onClick={generate} disabled={loading}>
+            {loading ? 'GENERATING...' : 'GENERATE'}
+          </button>
+
+          {error && <div className="error-box">{error}</div>}
+
+          {data && (
+            <div className="response-box">
+              <div className="response-head">
+                <span>API RESPONSE</span>
+                <button onClick={() => copy(JSON.stringify(data, null, 2))}>
+                  COPY FULL
+                </button>
+              </div>
+
+              {data.nickname && (
+                <div className="result-grid">
+                  <div><small>NICKNAME</small><strong>{data.nickname}</strong></div>
+                  <div><small>REGION</small><strong>{data.ffAntiConfigDesc?.region || data.ipRegion || '-'}</strong></div>
+                  <div><small>ACCOUNT UID</small><strong>{data.accountId || '-'}</strong></div>
+                  <div><small>LEVEL</small><strong>{data.level ?? '-'}</strong></div>
+                </div>
+              )}
+
+              {data.access_token && (
+                <div className="result-field">
+                  <div className="result-title">
+                    <span>EXTRACTED ACCESS TOKEN</span>
+                    <button onClick={() => copy(data.access_token)}>COPY</button>
+                  </div>
+                  <pre>{data.access_token}</pre>
+                </div>
+              )}
+
+              {data.token && (
+                <div className="result-field">
+                  <div className="result-title">
+                    <span>JWT TOKEN</span>
+                    <button onClick={() => copy(data.token)}>COPY</button>
+                  </div>
+                  <pre>{data.token}</pre>
+                </div>
+              )}
+
+              <div className="result-field">
+                <div className="result-title">
+                  <span>FULL API RESPONSE</span>
+                  <button onClick={() => copy(JSON.stringify(data, null, 2))}>COPY FULL</button>
+                </div>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const App = () => {
   const openLink = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
+
+  const [page, setPage] = React.useState('home');
+
+  const onEatToAccess = () => {
+    setPage('eat');
+  };
+
+  if (page === 'eat') {
+    return <EatToAccess onBack={() => setPage('home')} />;
+  }
 
   return (
     <div className="app-wrapper">
@@ -44,78 +191,52 @@ const App = () => {
 
           <div className="btn-group">
 
-            {/* GOOGLE */}
             <button
               className="login-btn google"
               onClick={() => openLink('https://auth.garena.com/universal/oauth?platform=8&response_type=code&locale=en-SG&client_id=100067&redirect_uri=https://api.ff.garena.co.id/auth/auth/callback_n?site=https://api-discountstore.kiosgamer.gameid.garena.co.id/oauth/callback_redirect/')}
             >
-              <div className="provider-icon">
-                G
-              </div>
-
-              <div className="login-text">
-                <strong>Google</strong>
-              </div>
+              <div className="provider-icon">G</div>
+              <div className="login-text"><strong>Google</strong></div>
             </button>
 
-
-            {/* FACEBOOK */}
             <button
               className="login-btn facebook"
               onClick={() => openLink('https://auth.garena.com/universal/oauth?platform=3&response_type=code&locale=en-SG&client_id=100067&redirect_uri=https://api.ff.garena.co.id/auth/auth/callback_n?site=https://api-discountstore.kiosgamer.gameid.garena.co.id/oauth/callback_redirect/')}
             >
-              <div className="provider-icon">
-                f
-              </div>
-
-              <div className="login-text">
-                <strong>Facebook</strong>
-              </div>
+              <div className="provider-icon">f</div>
+              <div className="login-text"><strong>Facebook</strong></div>
             </button>
 
-
-            {/* VK */}
             <button
               className="login-btn vk"
               onClick={() => openLink('https://auth.garena.com/universal/oauth?platform=5&response_type=code&locale=en-SG&client_id=100067&redirect_uri=https://api.ff.garena.co.id/auth/auth/callback_n?site=https://api-discountstore.kiosgamer.gameid.garena.co.id/oauth/callback_redirect/')}
             >
-              <div className="provider-icon">
-                VK
-              </div>
-
-              <div className="login-text">
-                <strong>VK</strong>
-              </div>
+              <div className="provider-icon">VK</div>
+              <div className="login-text"><strong>VK</strong></div>
             </button>
 
-
-            {/* X */}
             <button
               className="login-btn x"
               onClick={() => openLink('https://auth.garena.com/universal/oauth?platform=11&response_type=code&locale=en-SG&client_id=100067&redirect_uri=https://api.ff.garena.co.id/auth/auth/callback_n?site=https://api-discountstore.kiosgamer.gameid.garena.co.id/oauth/callback_redirect/')}
             >
-              <div className="provider-icon">
-                𝕏
-              </div>
-
-              <div className="login-text">
-                <strong>X</strong>
-              </div>
+              <div className="provider-icon">𝕏</div>
+              <div className="login-text"><strong>X</strong></div>
             </button>
 
-
-            {/* APPLE */}
             <button
               className="login-btn apple"
               onClick={() => openLink('https://auth.garena.com/universal/oauth?platform=10&response_type=code&locale=en-SG&client_id=100067&redirect_uri=https://api.ff.garena.co.id/auth/auth/callback_n?site=https://api-discountstore.kiosgamer.gameid.garena.co.id/oauth/callback_redirect/')}
             >
-              <div className="provider-icon">
-                ●
-              </div>
+              <div className="provider-icon">●</div>
+              <div className="login-text"><strong>Apple</strong></div>
+            </button>
 
-              <div className="login-text">
-                <strong>Apple</strong>
-              </div>
+            <button
+              className="login-btn ff-card"
+              onClick={() => onEatToAccess()}
+            >
+              <div className="provider-icon ff-logo">FF</div>
+              <div className="login-text"><strong>EatToAccess</strong></div>
             </button>
 
           </div>
@@ -142,7 +263,7 @@ const App = () => {
 
             <a
               className="social-link"
-              href="https://t.me/YOUR_USERNAME"
+              href="https://t.me/ghost_hacker_bot"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -151,7 +272,7 @@ const App = () => {
 
             <a
               className="social-link"
-              href="https://t.me/YOUR_USERNAME"
+              href="https://t.me/ghost_hacker_bot"
               target="_blank"
               rel="noopener noreferrer"
             >

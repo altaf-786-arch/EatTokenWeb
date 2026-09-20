@@ -845,3 +845,348 @@ footer b {
     font-size: 10px;
   }
 }
+
+/* =========================================
+   EAT TO ACCESS
+========================================= */
+
+.eat-access .ff-logo {
+  font-size: 18px;
+  letter-spacing: -1px;
+}
+
+.ff-logo {
+  font-weight: 900;
+}
+
+/* =========================================
+   EAT TOKEN PAGE
+========================================= */
+
+.token-page {
+  max-width: 760px;
+}
+
+.page-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  color: #777;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.back-btn {
+  border: 1px solid #4d1111;
+  background: #080808;
+  color: #fff;
+  border-radius: 9px;
+  padding: 9px 13px;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.back-btn:hover {
+  border-color: #ff0000;
+  box-shadow: 0 0 16px rgba(255,0,0,.18);
+}
+
+.token-card {
+  position: relative;
+  padding: 30px;
+  background: linear-gradient(145deg, rgba(18,18,18,.98), rgba(2,2,2,.98));
+  border: 1px solid #451010;
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.8), 0 0 35px rgba(255,0,0,.06);
+  overflow: hidden;
+}
+
+.token-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: #ff0000;
+  box-shadow: 0 0 15px #ff0000;
+}
+
+.token-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020202;
+  border: 2px solid #ff1111;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  box-shadow: 0 0 18px rgba(255,0,0,.25);
+}
+
+.token-card h2 {
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.token-card .sub {
+  margin: 7px auto 24px;
+  max-width: 500px;
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ff2b2b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.token-input {
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  padding: 15px;
+  background: #050505;
+  border: 1px solid #4d1111;
+  border-radius: 12px;
+  outline: none;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.55;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  transition: .2s ease;
+}
+
+.token-input::placeholder {
+  color: #555;
+}
+
+.token-input:focus {
+  border-color: #ff1111;
+  box-shadow: 0 0 20px rgba(255,0,0,.12);
+}
+
+.generate-btn {
+  width: 100%;
+  margin-top: 13px;
+  min-height: 50px;
+  border: 1px solid #ff1111;
+  border-radius: 11px;
+  background: linear-gradient(180deg, #240000, #0b0000);
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,0,0,.12);
+  transition: .2s ease;
+}
+
+.generate-btn:hover:not(:disabled) {
+  background: #360000;
+  box-shadow: 0 0 28px rgba(255,0,0,.22);
+}
+
+.generate-btn:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+.error-box,
+.safe-note {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.error-box {
+  color: #ffb0b0;
+  background: #160606;
+  border: 1px solid #681818;
+}
+
+.safe-note {
+  color: #777;
+  background: #060606;
+  border: 1px solid #321010;
+}
+
+.result-card {
+  margin-top: 20px;
+  padding: 18px;
+  background: #030303;
+  border: 1px solid #451010;
+  border-radius: 14px;
+}
+
+.result-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.result-status {
+  color: #ff3b3b;
+  font-size: 9px;
+  border: 1px solid #681818;
+  border-radius: 999px;
+  padding: 5px 8px;
+  letter-spacing: 1px;
+}
+
+.result-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.result-item {
+  min-width: 0;
+  padding: 12px;
+  background: #080808;
+  border: 1px solid #211010;
+  border-radius: 10px;
+}
+
+.result-item span {
+  display: block;
+  color: #777;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.result-item strong {
+  display: block;
+  color: #fff;
+  font-size: 12px;
+  word-break: break-word;
+}
+
+.response-block {
+  margin-top: 10px;
+  padding: 12px;
+  background: #080808;
+  border: 1px solid #211010;
+  border-radius: 10px;
+}
+
+.response-label {
+  color: #ff2b2b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 7px;
+}
+
+.response-value {
+  color: #bbb;
+  font-size: 11px;
+  line-height: 1.5;
+  word-break: break-all;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.scope-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.scope-chip {
+  padding: 5px 8px;
+  color: #ddd;
+  background: #120707;
+  border: 1px solid #4d1111;
+  border-radius: 7px;
+  font-size: 9px;
+}
+
+/* Six providers: Apple and EatToAccess share the last row on desktop. */
+@media (min-width: 701px) {
+  .btn-group {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .login-btn:nth-child(5),
+  .login-btn:nth-child(6) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .login-btn:nth-child(5) {
+    grid-column: auto;
+    width: 100%;
+    justify-self: auto;
+  }
+
+  .login-btn:nth-child(6) {
+    grid-column: auto;
+  }
+
+  .token-card {
+    padding: 22px 13px 18px;
+    border-radius: 17px;
+  }
+
+  .token-card h2 {
+    font-size: 21px;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .page-topbar {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .token-input {
+    min-height: 130px;
+  }
+}
+
+
+/* EatToAccess card: same independent size and position as other provider cards */
+.btn-group .ff-card {
+  cursor: pointer;
+}
+
+.btn-group .ff-card .ff-logo {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.btn-group .ff-card:hover {
+  transform: translateY(-2px);
+}
