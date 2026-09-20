@@ -8,10 +8,26 @@ function EatToAccess({ onBack }) {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
+  const extractEatToken = (input) => {
+    const value = input.trim();
+
+    if (/^https?:\/\//i.test(value)) {
+      try {
+        const url = new URL(value);
+        return url.searchParams.get('eat') || '';
+      } catch {
+        return '';
+      }
+    }
+
+    return value;
+  };
+
   const generate = async () => {
-    const token = eatToken.trim();
+    const token = extractEatToken(eatToken);
+
     if (!token) {
-      setError('Please paste your Eat Token.');
+      setError('Please paste a valid Eat Token or complete URL.');
       return;
     }
 
@@ -75,7 +91,7 @@ function EatToAccess({ onBack }) {
             className="token-input"
             value={eatToken}
             onChange={(e) => setEatToken(e.target.value)}
-            placeholder="Paste Eat Token here..."
+            placeholder="Paste Eat Token or complete URL here..."
             spellCheck="false"
           />
 
